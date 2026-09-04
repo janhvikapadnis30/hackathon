@@ -1,26 +1,43 @@
-import api from './api';
+import { MOCK_EXAMS } from '../data/mockData';
+
+let exams = [...MOCK_EXAMS];
+const delay = (ms = 100) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export async function getAllExams(params = {}) {
-  const response = await api.get('/exams', { params });
-  return response.data;
+  await delay();
+  let filtered = [...exams];
+  if (params.semester) {
+    filtered = filtered.filter((e) => e.semester === Number(params.semester));
+  }
+  return { success: true, count: filtered.length, data: filtered };
 }
 
 export async function getExam(id) {
-  const response = await api.get(`/exams/${id}`);
-  return response.data;
+  await delay();
+  const exam = exams.find((e) => e.id === Number(id));
+  if (!exam) return { success: false, message: 'Exam not found' };
+  return { success: true, data: exam };
 }
 
 export async function createExam(data) {
-  const response = await api.post('/exams', data);
-  return response.data;
+  await delay();
+  const newExam = { id: Date.now(), ...data };
+  exams.unshift(newExam);
+  return { success: true, message: 'Exam created successfully', data: newExam };
 }
 
 export async function updateExam(id, data) {
-  const response = await api.put(`/exams/${id}`, data);
-  return response.data;
+  await delay();
+  const idx = exams.findIndex((e) => e.id === Number(id));
+  if (idx !== -1) {
+    exams[idx] = { ...exams[idx], ...data };
+    return { success: true, message: 'Exam updated successfully', data: exams[idx] };
+  }
+  return { success: false, message: 'Exam not found' };
 }
 
 export async function deleteExam(id) {
-  const response = await api.delete(`/exams/${id}`);
-  return response.data;
+  await delay();
+  exams = exams.filter((e) => e.id !== Number(id));
+  return { success: true, message: 'Exam deleted successfully' };
 }

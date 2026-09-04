@@ -60,23 +60,27 @@ Ensure your local PostgreSQL server is running on port 5432, then create the dat
 CREATE DATABASE student_erp;
 ```
 
-### 2. Configure Backend
-```bash
-cd backend
-cp .env.example .env
-# Edit .env with your PostgreSQL password
-npm install
-npm run seed     # Populates departments, courses, exams, 1 admin, 5 faculty, 50 students
-npm run dev      # Starts Express server on http://localhost:5000
-```
+### Unified Root Commands
+From the project root directory, you can manage both services directly:
 
-### 3. Configure Frontend
-In a new terminal:
 ```bash
-cd frontend
-cp .env.example .env
-npm install
-npm run dev      # Starts Vite dev server on http://localhost:5173
+# Install dependencies for both backend and frontend
+npm run install:all
+
+# Seed database mock records (requires PostgreSQL running)
+npm run seed
+
+# Run verification test suite
+npm run test:backend
+
+# Start backend development server (Port 5000)
+npm run server
+
+# Start frontend development server (Port 5173)
+npm run client
+
+# Build frontend for production
+npm run build:frontend
 ```
 Open **`http://localhost:5173`** in your browser to access the ERP portal.
 

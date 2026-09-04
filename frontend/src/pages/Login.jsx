@@ -1,175 +1,194 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { GraduationCap, Eye, EyeOff, Lock, Mail, ArrowRight, ShieldCheck } from 'lucide-react';
+
+const roles = [
+  {
+    key: 'admin',
+    label: 'Administrator',
+    description: 'Full system access · Manage students, faculty, fees & reports',
+    icon: '🛡️',
+    color: '#3b5bdb',
+    bg: '#eef2ff',
+    redirect: '/admin/dashboard',
+  },
+  {
+    key: 'faculty',
+    label: 'Faculty',
+    description: 'Mark attendance · Enter results · View student progress',
+    icon: '👨‍🏫',
+    color: '#2f9e44',
+    bg: '#ebfbee',
+    redirect: '/faculty/dashboard',
+  },
+  {
+    key: 'student',
+    label: 'Student',
+    description: 'View attendance, fees, results & academic profile',
+    icon: '🎓',
+    color: '#e67700',
+    bg: '#fff9db',
+    redirect: '/student/dashboard',
+  },
+];
 
 export default function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
-
   const { login } = useAuth();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(null);
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    setErrorMessage('');
-
-    if (!email.trim() || !password.trim()) {
-      setErrorMessage('Please enter both your email address and password.');
-      return;
-    }
-
-    try {
-      setLoading(true);
-      const res = await login(email.trim(), password);
-      if (res.role === 'admin') navigate('/admin/dashboard');
-      else if (res.role === 'faculty') navigate('/faculty/dashboard');
-      else if (res.role === 'student') navigate('/student/dashboard');
-      else navigate('/');
-    } catch (err) {
-      setErrorMessage(
-        err.response?.data?.message || err.message || 'Login failed. Please verify credentials.'
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Quick fill helper for convenience during demo/grading
-  const fillCredentials = (demoEmail, demoPassword) => {
-    setEmail(demoEmail);
-    setPassword(demoPassword);
-    setErrorMessage('');
+  const handleSelect = (role) => {
+    setLoading(role.key);
+    login(role.key);
+    setTimeout(() => navigate(role.redirect, { replace: true }), 300);
   };
 
   return (
-    <div className="login-page-wrapper">
-      <div className="login-card-container">
-        {/* Left Branding Column */}
-        <div className="login-brand-panel">
-          <div className="brand-badge">
-            <GraduationCap size={28} />
-            <h2>Apex Institute ERP</h2>
-          </div>
-          <p className="brand-tagline">
-            Next-Generation Integrated Academic & Student Information Management System
-          </p>
-
-          <div className="brand-features-list">
-            <div className="feature-item">
-              <ShieldCheck size={18} className="feature-icon" />
-              <span>Role-Based Access Control (Admin, Faculty, Student)</span>
-            </div>
-            <div className="feature-item">
-              <ShieldCheck size={18} className="feature-icon" />
-              <span>Automated Attendance Tracking & Percentage Calculations</span>
-            </div>
-            <div className="feature-item">
-              <ShieldCheck size={18} className="feature-icon" />
-              <span>Comprehensive Fee Management with Dues & Ledgers</span>
-            </div>
-            <div className="feature-item">
-              <ShieldCheck size={18} className="feature-icon" />
-              <span>Native PDF & Excel Report Exports via PDFKit & ExcelJS</span>
-            </div>
-          </div>
-
-          <div className="quick-creds-box">
-            <p className="quick-creds-title">Demo Test Accounts:</p>
-            <div className="quick-creds-pills">
-              <button
-                type="button"
-                className="cred-pill"
-                onClick={() => fillCredentials('admin@erp.com', 'Admin@123')}
-              >
-                Admin (admin@erp.com)
-              </button>
-              <button
-                type="button"
-                className="cred-pill"
-                onClick={() => fillCredentials('faculty@erp.com', 'Faculty@123')}
-              >
-                Faculty (faculty@erp.com)
-              </button>
-              <button
-                type="button"
-                className="cred-pill"
-                onClick={() => fillCredentials('student1@erp.com', 'Student@123')}
-              >
-                Student (student1@erp.com)
-              </button>
-            </div>
-          </div>
+    <div style={styles.page}>
+      <div style={styles.card}>
+        {/* Header */}
+        <div style={styles.header}>
+          <div style={styles.logo}>🎓</div>
+          <h1 style={styles.title}>Apex Institute ERP</h1>
+          <p style={styles.subtitle}>Next-Generation Integrated Academic & Student Information Management System</p>
         </div>
 
-        {/* Right Form Column */}
-        <div className="login-form-panel">
-          <div className="login-form-header">
-            <h3>Sign in to your account</h3>
-            <p>Enter your institutional credentials to access your ERP portal</p>
-          </div>
+        {/* Divider */}
+        <div style={styles.divider}>
+          <span style={styles.dividerText}>Select your role to continue</span>
+        </div>
 
-          {errorMessage && <div className="login-error-alert">{errorMessage}</div>}
-
-          <form onSubmit={handleLogin} className="login-form">
-            <div className="form-group">
-              <label htmlFor="email">Institutional Email</label>
-              <div className="input-with-icon">
-                <Mail size={18} className="input-icon" />
-                <input
-                  id="email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="e.g. admin@erp.com"
-                  required
-                />
+        {/* Role Cards */}
+        <div style={styles.roleGrid}>
+          {roles.map((role) => (
+            <button
+              key={role.key}
+              style={{
+                ...styles.roleCard,
+                borderColor: loading === role.key ? role.color : '#e5e7eb',
+                background: loading === role.key ? role.bg : '#fff',
+                opacity: loading && loading !== role.key ? 0.5 : 1,
+              }}
+              onClick={() => handleSelect(role)}
+              disabled={!!loading}
+            >
+              <div style={{ ...styles.roleIcon, background: role.bg }}>{role.icon}</div>
+              <div style={styles.roleLabel} >{role.label}</div>
+              <div style={styles.roleDesc}>{role.description}</div>
+              <div style={{ ...styles.roleBadge, background: role.color }}>
+                {loading === role.key ? 'Loading…' : 'Enter as ' + role.label}
               </div>
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <div className="input-with-icon">
-                <Lock size={18} className="input-icon" />
-                <input
-                  id="password"
-                  type={showPassword ? 'text' : 'password'}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter your password"
-                  required
-                />
-                <button
-                  type="button"
-                  className="password-toggle-btn"
-                  onClick={() => setShowPassword(!showPassword)}
-                  tabIndex={-1}
-                >
-                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                </button>
-              </div>
-            </div>
-
-            <button type="submit" className="login-submit-btn" disabled={loading}>
-              {loading ? (
-                <span>Signing in...</span>
-              ) : (
-                <>
-                  <span>Sign In</span>
-                  <ArrowRight size={18} />
-                </>
-              )}
             </button>
-          </form>
-
-          <div className="login-form-footer">
-            <span>Secured via PostgreSQL + JWT Authentication</span>
-          </div>
+          ))}
         </div>
+
+        {/* Footer */}
+        <p style={styles.footer}>
+          Demo mode · No login required · All data is sample data
+        </p>
       </div>
     </div>
   );
 }
+
+const styles = {
+  page: {
+    minHeight: '100vh',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    background: 'linear-gradient(135deg, #1a1f5e 0%, #2d4a8a 50%, #1a6b8a 100%)',
+    padding: '24px',
+  },
+  card: {
+    background: '#fff',
+    borderRadius: '20px',
+    padding: '48px 40px 36px',
+    width: '100%',
+    maxWidth: '700px',
+    boxShadow: '0 25px 60px rgba(0,0,0,0.3)',
+  },
+  header: {
+    textAlign: 'center',
+    marginBottom: '32px',
+  },
+  logo: {
+    fontSize: '52px',
+    marginBottom: '12px',
+  },
+  title: {
+    fontSize: '28px',
+    fontWeight: '800',
+    color: '#111827',
+    margin: '0 0 8px',
+  },
+  subtitle: {
+    fontSize: '14px',
+    color: '#6b7280',
+    margin: 0,
+    lineHeight: 1.5,
+  },
+  divider: {
+    textAlign: 'center',
+    position: 'relative',
+    marginBottom: '28px',
+  },
+  dividerText: {
+    background: '#fff',
+    padding: '0 16px',
+    fontSize: '13px',
+    color: '#9ca3af',
+    fontWeight: '500',
+  },
+  roleGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(3, 1fr)',
+    gap: '16px',
+    marginBottom: '28px',
+  },
+  roleCard: {
+    border: '2px solid #e5e7eb',
+    borderRadius: '14px',
+    padding: '24px 16px',
+    cursor: 'pointer',
+    textAlign: 'center',
+    transition: 'all 0.2s ease',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '10px',
+  },
+  roleIcon: {
+    width: '56px',
+    height: '56px',
+    borderRadius: '50%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: '26px',
+  },
+  roleLabel: {
+    fontSize: '16px',
+    fontWeight: '700',
+    color: '#111827',
+  },
+  roleDesc: {
+    fontSize: '12px',
+    color: '#6b7280',
+    lineHeight: 1.5,
+  },
+  roleBadge: {
+    padding: '6px 14px',
+    borderRadius: '20px',
+    color: '#fff',
+    fontSize: '12px',
+    fontWeight: '600',
+    marginTop: '4px',
+  },
+  footer: {
+    textAlign: 'center',
+    fontSize: '12px',
+    color: '#9ca3af',
+    margin: 0,
+  },
+};

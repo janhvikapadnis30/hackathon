@@ -1,0 +1,27 @@
+{
+  "name": "college-erp-system",
+  "version": "1.0.0",
+  "description": "Integrated College ERP Student Management System (Node.js/Express + React/Vite + PostgreSQL)",
+  "private": true,
+  "scripts": {
+    "install:backend": "npm --prefix backend install",
+    "install:frontend": "npm --prefix frontend install",
+    "install:all": "npm run install:backend && npm run install:frontend",
+    "seed": "npm --prefix backend run seed",
+    "server": "npm --prefix backend run dev",
+    "client": "npm --prefix frontend run dev",
+    "build:frontend": "npm --prefix frontend run build",
+    "test:backend": "node backend/test-verify.js"
+  },
+  "keywords": [
+    "erp",
+    "student-management",
+    "react",
+    "express",
+    "postgresql",
+    "jwt",
+    "vite"
+  ],
+  "author": "",
+  "license": "ISC"
+}
