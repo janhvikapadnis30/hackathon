@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Management System</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>Student Management System</h1>
+    </header>
+
+    <main>
+        <h2>Dashboard</h2>
+
+        <div class="dashboard">
+
+            <div class="card">
+                <h3>Students</h3>
+                <p>Manage student records</p>
+                <button>View Students</button>
+            </div>
+
+            <div class="card">
+                <h3>Attendance</h3>
+                <p>View and manage attendance</p>
+                <button>View Attendance</button>
+            </div>
+
+            <div class="card">
+                <h3>Fees</h3>
+                <p>Manage student fees</p>
+                <button>View Fees</button>
+            </div>
+
+            <div class="card">
+                <h3>Results</h3>
+                <p>View examination results</p>
+                <button>View Results</button>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Management System - Login</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="login-container">
+
+        <div class="login-box">
+
+            <h1>Student Management System</h1>
+            <p class="subtitle">Login to your account</p>
+
+            <form id="loginForm">
+
+                <label for="username">Username</label>
+                <input
+                    type="text"
+                    id="username"
+                    placeholder="Enter your username"
+                    required
+                >
+
+                <label for="password">Password</label>
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    required
+                >
+
+                <label for="role">Login As</label>
+                <select id="role" required>
+                    <option value="">Select your role</option>
+                    <option value="admin">Admin</option>
+                    <option value="faculty">Faculty</option>
+                    <option value="student">Student</option>
+                </select>
+
+                <button type="submit">Login</button>
+
+            </form>
+
+            <p id="message"></p>
+
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,207 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #2733b1;
+}
+
+.login-container {
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-box {
+    width: 400px;
+    background: rgb(255, 255, 255);
+
+    padding: 40px;
+
+    border-radius: 12px;
+
+    box-shadow: 0 4px 15px rgba(68, 37, 196, 0.1);
+}
+
+.login-box h1 {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 25px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #090909;
+    margin-bottom: 30px;
+}
+
+.login-box label {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: bold;
+}
+
+.login-box input,
+.login-box select {
+    width: 100%;
+
+    padding: 12px;
+
+    margin-bottom: 20px;
+
+    border: 1px solid #0c0c0c;
+    border-radius: 6px;
+
+    font-size: 15px;
+}
+
+.login-box button {
+    width: 100%;
+
+    padding: 12px;
+
+    border: none;
+    border-radius: 6px;
+
+    background: #070000;
+    color: rgb(249, 248, 248);
+
+    font-size: 16px;
+
+    cursor: pointer;
+}
+
+.login-box button:hover {
+    background: #* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    color: #222;
+}
+
+header {
+    background: #1f2937;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+main {
+    padding: 40px;
+}
+
+h2 {
+    margin-bottom: 25px;
+}
+
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(7, 0, 0, 0.795);
+}
+
+.card h3 {
+    margin-bottom: 10px;
+}
+
+.card p {
+    margin-bottom: 20px;
+    color: #666;
+}
+
+button {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background: #2563eb;
+    color: white;
+}
+
+button:hover {
+    background: #1d4ed8;
+};
+}
+
+#message {
+    text-align: center;
+    margin-top: 15px;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #6d0808dc;
+    color: #a69494;
+}
+
+header {
+    background: #000000;
+    color: rgb(147, 137, 137);
+    padding: 20px;
+    text-align: center;
+}
+
+main {
+    padding: 40px;
+}
+
+h2 {
+    margin-bottom: 25px;
+}
+
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.card {
+    background: rgb(3, 0, 0);
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(2, 0, 0, 0.1);
+}
+
+.card h3 {
+    margin-bottom: 10px;
+}
+
+.card p {
+    margin-bottom: 20px;
+    color: #f9f9f9;
+}
+
+button {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background: #8c8f94;
+    color: white;
+}
+
+button:hover {
+    background: #411b9a;
+}
