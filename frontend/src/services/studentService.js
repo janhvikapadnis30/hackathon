@@ -2,44 +2,54 @@ import {
   MOCK_STUDENTS,
   MOCK_DEPARTMENTS,
   MOCK_COURSES,
-  MOCK_ATTENDANCE,
-  MOCK_ATTENDANCE_SUMMARY,
+  MOCK_ATTENDANCE_ENTRIES,
   MOCK_FEES,
   MOCK_EXAMS,
   MOCK_RESULTS,
   MOCK_USERS,
 } from '../data/mockData';
 
-// In-memory data stores initialized with mock data
 let students = [...MOCK_STUDENTS];
-let departments = [...MOCK_DEPARTMENTS];
-let courses = [...MOCK_COURSES];
-let attendanceRecords = [...MOCK_ATTENDANCE];
-let feeRecords = [...MOCK_FEES];
-let exams = [...MOCK_EXAMS];
-let results = [...MOCK_RESULTS];
-
 const delay = (ms = 100) => new Promise((resolve) => setTimeout(resolve, ms));
 
-// ================= STUDENTS =================
 export async function getStudents(params = {}) {
   await delay();
   let filtered = [...students];
+
   if (params.search) {
     const q = params.search.toLowerCase();
     filtered = filtered.filter(
-      (s) => s.name.toLowerCase().includes(q) || s.roll_number.toLowerCase().includes(q) || (s.email && s.email.toLowerCase().includes(q))
+      (s) =>
+        s.name.toLowerCase().includes(q) ||
+        s.roll_number.toLowerCase().includes(q) ||
+        (s.email && s.email.toLowerCase().includes(q))
     );
   }
-  if (params.department) {
-    filtered = filtered.filter((s) => s.department === params.department || s.department_code === params.department);
+
+  // Support department_id or department name/code
+  if (params.department_id) {
+    filtered = filtered.filter(
+      (s) => s.department_id === Number(params.department_id)
+    );
+  } else if (params.department) {
+    filtered = filtered.filter(
+      (s) =>
+        s.department === params.department ||
+        s.department_code === params.department ||
+        s.department_id === Number(params.department)
+    );
   }
+
+  if (params.semester) {
+    filtered = filtered.filter((s) => Number(s.semester) === Number(params.semester));
+  }
+
   return { success: true, count: filtered.length, data: filtered };
 }
 
 export async function getStudent(id) {
   await delay();
-  const student = students.find((s) => s.id === Number(id));
+  const student = students.find((s) => s.id === Number(id)) || students[0];
   if (!student) return { success: false, message: 'Student not found' };
   return { success: true, data: student };
 }
@@ -48,9 +58,14 @@ export async function getStudentProfile(id) {
   await delay();
   const numId = Number(id);
   const student = students.find((s) => s.id === numId) || students[0];
-  const studentAttendance = attendanceRecords.filter((a) => a.student_id === numId);
-  const studentFees = feeRecords.filter((f) => f.student_id === numId);
-  const studentResults = results.filter((r) => r.student_id === numId);
+
+  const studentAttendance = MOCK_ATTENDANCE_ENTRIES.filter((a) => a.student_id === student.id);
+  const totalClasses = studentAttendance.reduce((acc, a) => acc + a.total_classes, 0) || 40;
+  const attendedClasses = studentAttendance.reduce((acc, a) => acc + a.classes_attended, 0) || 35;
+  const overallPercentage = totalClasses > 0 ? parseFloat(((attendedClasses / totalClasses) * 100).toFixed(1)) : 85;
+
+  const studentFees = MOCK_FEES.filter((f) => f.student_id === student.id);
+  const studentResults = MOCK_RESULTS.filter((r) => r.student_id === student.id);
 
   return {
     success: true,
@@ -62,16 +77,26 @@ export async function getStudentProfile(id) {
         email: student.email,
         phone: student.phone,
         department_name: student.department,
+        department_code: student.department_code,
         semester: student.semester,
-        admission_year: student.admission_year || 2023,
+        admission_year: student.admission_year || 2021,
       },
       attendance: {
         summary: {
-          total_classes: 40,
-          attended_classes: Math.round((student.attendance_pct || 85) * 0.4),
-          overall_percentage: student.attendance_pct || 85,
+          total_classes: totalClasses,
+          attended_classes: attendedClasses,
+          overall_percentage: overallPercentage,
         },
-        records: studentAttendance.length > 0 ? studentAttendance : MOCK_ATTENDANCE.slice(0, 5),
+        records: studentAttendance.length > 0 ? studentAttendance : [
+          {
+            id: 1,
+            course_code: 'CS501',
+            course_name: 'Web Technologies',
+            total_classes: 40,
+            classes_attended: 35,
+            percentage: 87.5,
+          },
+        ],
       },
       fees: {
         summary: {
@@ -88,15 +113,24 @@ export async function getStudentProfile(id) {
 
 export async function createStudent(data) {
   await delay();
+  const dept = MOCK_DEPARTMENTS.find((d) => d.id === Number(data.department_id)) || MOCK_DEPARTMENTS[0];
   const newStudent = {
     id: Date.now(),
-    ...data,
+    name: data.name,
+    email: data.email,
+    roll_number: data.roll_number,
+    department: dept.name,
+    department_id: dept.id,
+    department_code: dept.code,
+    semester: Number(data.semester) || 1,
+    phone: data.phone || '9876543299',
+    admission_year: Number(data.admission_year) || 2024,
     attendance_pct: 100,
     fee_status: 'pending',
     cgpa: 0,
   };
   students.unshift(newStudent);
-  return { success: true, message: 'Student created successfully', data: newStudent };
+  return { success: true, message: 'Student registered successfully', data: newStudent };
 }
 
 export async function updateStudent(id, data) {
