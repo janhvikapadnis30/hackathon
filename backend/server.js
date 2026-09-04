@@ -10,6 +10,7 @@ const feeRoutes = require('./routes/feeRoutes');
 const examRoutes = require('./routes/examRoutes');
 const resultRoutes = require('./routes/resultRoutes');
 const reportRoutes = require('./routes/reportRoutes');
+const academicRoutes = require('./routes/academicRoutes');
 
 // Import error middlewares
 const { errorHandler, notFoundHandler } = require('./middleware/errorMiddleware');
@@ -70,6 +71,8 @@ app.use('/api/fees', feeRoutes);
 app.use('/api/exams', examRoutes);
 app.use('/api/results', resultRoutes);
 app.use('/api/reports', reportRoutes);
+app.use('/api/academic', academicRoutes);
+app.use('/api', academicRoutes);
 
 // ============================================================================
 // Error & 404 Handlers
