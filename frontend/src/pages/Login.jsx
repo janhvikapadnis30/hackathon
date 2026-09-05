@@ -1,46 +1,38 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-
-const roles = [
-  {
-    key: 'admin',
-    label: 'Administrator',
-    description: 'Full system access · Manage students, faculty, fees & reports',
-    icon: '🛡️',
-    color: '#3b5bdb',
-    bg: '#eef2ff',
-    redirect: '/admin/dashboard',
-  },
-  {
-    key: 'faculty',
-    label: 'Faculty',
-    description: 'Mark attendance · Enter results · View student progress',
-    icon: '👨‍🏫',
-    color: '#2f9e44',
-    bg: '#ebfbee',
-    redirect: '/faculty/dashboard',
-  },
-  {
-    key: 'student',
-    label: 'Student',
-    description: 'View attendance, fees, results & academic profile',
-    icon: '🎓',
-    color: '#e67700',
-    bg: '#fff9db',
-    redirect: '/student/dashboard',
-  },
-];
+import { Lock, Mail, UserCircle } from 'lucide-react';
 
 export default function Login() {
   const { login } = useAuth();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(null);
+  
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [role, setRole] = useState('student');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSelect = (role) => {
-    setLoading(role.key);
-    login(role.key);
-    setTimeout(() => navigate(role.redirect, { replace: true }), 300);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!email || !password) {
+      setError('Please enter both email and password.');
+      return;
+    }
+    setError('');
+    setLoading(true);
+    
+    // Simulate API delay for realism
+    setTimeout(() => {
+      login(role);
+      
+      // Navigate based on role
+      let redirect = '/student/dashboard';
+      if (role === 'admin') redirect = '/admin/dashboard';
+      if (role === 'faculty') redirect = '/faculty/dashboard';
+      
+      navigate(redirect, { replace: true });
+    }, 800);
   };
 
   return (
@@ -50,41 +42,64 @@ export default function Login() {
         <div style={styles.header}>
           <img src="/camp-co-logo.jpg" alt="Camp-co Logo" style={{ width: '80px', height: '80px', borderRadius: '50%', marginBottom: '12px', objectFit: 'cover' }} />
           <h1 style={styles.title}>Camp-co</h1>
-          <p style={styles.subtitle}>Next-Generation Integrated Academic & Student Information Management System</p>
+          <p style={styles.subtitle}>Secure Access Portal</p>
         </div>
 
-        {/* Divider */}
-        <div style={styles.divider}>
-          <span style={styles.dividerText}>Select your role to continue</span>
-        </div>
+        {error && <div className="alert alert-danger" style={{marginBottom: '20px'}}>{error}</div>}
 
-        {/* Role Cards */}
-        <div style={styles.roleGrid}>
-          {roles.map((role) => (
-            <button
-              key={role.key}
-              style={{
-                ...styles.roleCard,
-                borderColor: loading === role.key ? role.color : '#e5e7eb',
-                background: loading === role.key ? role.bg : '#fff',
-                opacity: loading && loading !== role.key ? 0.5 : 1,
-              }}
-              onClick={() => handleSelect(role)}
-              disabled={!!loading}
-            >
-              <div style={{ ...styles.roleIcon, background: role.bg }}>{role.icon}</div>
-              <div style={styles.roleLabel} >{role.label}</div>
-              <div style={styles.roleDesc}>{role.description}</div>
-              <div style={{ ...styles.roleBadge, background: role.color }}>
-                {loading === role.key ? 'Loading…' : 'Enter as ' + role.label}
-              </div>
-            </button>
-          ))}
-        </div>
+        <form onSubmit={handleSubmit} style={styles.form}>
+          <div style={styles.formGroup}>
+            <label style={styles.label}>Email Address</label>
+            <div style={styles.inputWrapper}>
+              <Mail size={18} style={styles.inputIcon} />
+              <input
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                style={styles.input}
+              />
+            </div>
+          </div>
+
+          <div style={styles.formGroup}>
+            <label style={styles.label}>Password</label>
+            <div style={styles.inputWrapper}>
+              <Lock size={18} style={styles.inputIcon} />
+              <input
+                type="password"
+                placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                style={styles.input}
+              />
+            </div>
+          </div>
+
+          <div style={styles.formGroup}>
+            <label style={styles.label}>Login As</label>
+            <div style={styles.inputWrapper}>
+              <UserCircle size={18} style={styles.inputIcon} />
+              <select
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                style={styles.input}
+              >
+                <option value="student">Student</option>
+                <option value="faculty">Faculty Member</option>
+                <option value="admin">Administrator</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" style={styles.submitBtn} disabled={loading}>
+            {loading ? 'Authenticating...' : 'Sign In'}
+          </button>
+        </form>
 
         {/* Footer */}
         <p style={styles.footer}>
-          Demo mode · No login required · All data is sample data
+          Demo mode · Any email/password will work · Select your role to mock access level
         </p>
       </div>
     </div>
@@ -105,16 +120,12 @@ const styles = {
     borderRadius: '20px',
     padding: '48px 40px 36px',
     width: '100%',
-    maxWidth: '700px',
+    maxWidth: '450px',
     boxShadow: '0 25px 60px rgba(0,0,0,0.3)',
   },
   header: {
     textAlign: 'center',
     marginBottom: '32px',
-  },
-  logo: {
-    fontSize: '52px',
-    marginBottom: '12px',
   },
   title: {
     fontSize: '28px',
@@ -128,67 +139,56 @@ const styles = {
     margin: 0,
     lineHeight: 1.5,
   },
-  divider: {
-    textAlign: 'center',
-    position: 'relative',
-    marginBottom: '28px',
-  },
-  dividerText: {
-    background: '#fff',
-    padding: '0 16px',
-    fontSize: '13px',
-    color: '#9ca3af',
-    fontWeight: '500',
-  },
-  roleGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(3, 1fr)',
-    gap: '16px',
-    marginBottom: '28px',
-  },
-  roleCard: {
-    border: '2px solid #e5e7eb',
-    borderRadius: '14px',
-    padding: '24px 16px',
-    cursor: 'pointer',
-    textAlign: 'center',
-    transition: 'all 0.2s ease',
+  form: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
-    gap: '10px',
+    gap: '20px',
   },
-  roleIcon: {
-    width: '56px',
-    height: '56px',
-    borderRadius: '50%',
+  formGroup: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '6px',
+  },
+  label: {
+    fontSize: '14px',
+    fontWeight: '600',
+    color: '#374151',
+  },
+  inputWrapper: {
+    position: 'relative',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: '26px',
   },
-  roleLabel: {
-    fontSize: '16px',
-    fontWeight: '700',
-    color: '#111827',
+  inputIcon: {
+    position: 'absolute',
+    left: '12px',
+    color: '#9ca3af',
   },
-  roleDesc: {
-    fontSize: '12px',
-    color: '#6b7280',
-    lineHeight: 1.5,
+  input: {
+    width: '100%',
+    padding: '12px 12px 12px 40px',
+    border: '1px solid #d1d5db',
+    borderRadius: '8px',
+    fontSize: '15px',
+    outline: 'none',
+    transition: 'border-color 0.2s',
   },
-  roleBadge: {
-    padding: '6px 14px',
-    borderRadius: '20px',
+  submitBtn: {
+    marginTop: '10px',
+    background: '#1a1f5e',
     color: '#fff',
-    fontSize: '12px',
+    border: 'none',
+    padding: '14px',
+    borderRadius: '8px',
+    fontSize: '16px',
     fontWeight: '600',
-    marginTop: '4px',
+    cursor: 'pointer',
+    transition: 'background 0.2s',
   },
   footer: {
     textAlign: 'center',
     fontSize: '12px',
     color: '#9ca3af',
-    margin: 0,
+    marginTop: '24px',
   },
 };

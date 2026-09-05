@@ -156,6 +156,7 @@ export default function AdminDashboard() {
                 <th>Department</th>
                 <th>Semester</th>
                 <th>Admission Year</th>
+                <th>Attendance</th>
                 <th style={{ textAlign: 'right' }}>Actions</th>
               </tr>
             </thead>
@@ -169,6 +170,15 @@ export default function AdminDashboard() {
                   </td>
                   <td>Semester {s.semester}</td>
                   <td>{s.admission_year}</td>
+                  <td>
+                    {s.attendance_pct ? (
+                      <span className={`badge ${s.attendance_pct >= 75 ? 'badge-success' : 'badge-warning'}`}>
+                        {s.attendance_pct}%
+                      </span>
+                    ) : (
+                      'N/A'
+                    )}
+                  </td>
                   <td style={{ textAlign: 'right' }}>
                     <button
                       onClick={() => navigate(`/admin/students/${s.id}`)}
