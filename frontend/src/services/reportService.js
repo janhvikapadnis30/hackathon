@@ -11,22 +11,22 @@ function triggerBrowserDownload(blobData, defaultFileName, contentType) {
 }
 
 export async function downloadStudentPDF(studentId, rollNumber = 'report') {
-  const content = `APEX INSTITUTE OF TECHNOLOGY - STUDENT DOSSIER\nRoll Number: ${rollNumber}\nGenerated: ${new Date().toLocaleDateString()}\nStatus: Verified`;
+  const content = `CAMP-CO - STUDENT DOSSIER\nRoll Number: ${rollNumber}\nGenerated: ${new Date().toLocaleDateString()}\nStatus: Verified`;
   triggerBrowserDownload(content, `student_${rollNumber}_report.txt`, 'text/plain');
 }
 
 export async function downloadAttendancePDF(courseId = null) {
-  const content = `APEX INSTITUTE - ATTENDANCE AUDIT\nDate: ${new Date().toLocaleDateString()}\nStatus: Verified Attendance Register`;
+  const content = `CAMP-CO - ATTENDANCE AUDIT\nDate: ${new Date().toLocaleDateString()}\nStatus: Verified Attendance Register`;
   triggerBrowserDownload(content, 'attendance_report.txt', 'text/plain');
 }
 
 export async function downloadFeesPDF() {
-  const content = `APEX INSTITUTE - FEE RECONCILIATION STATEMENT\nDate: ${new Date().toLocaleDateString()}\nStatus: Audited`;
+  const content = `CAMP-CO - FEE RECONCILIATION STATEMENT\nDate: ${new Date().toLocaleDateString()}\nStatus: Audited`;
   triggerBrowserDownload(content, 'fee_audit_report.txt', 'text/plain');
 }
 
 export async function downloadResultsPDF(examId = null) {
-  const content = `APEX INSTITUTE - EXAMINATION TABULATION REGISTER\nDate: ${new Date().toLocaleDateString()}`;
+  const content = `CAMP-CO - EXAMINATION TABULATION REGISTER\nDate: ${new Date().toLocaleDateString()}`;
   triggerBrowserDownload(content, 'examination_results_sheet.txt', 'text/plain');
 }
 

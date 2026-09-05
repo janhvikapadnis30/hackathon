@@ -30,7 +30,7 @@ export default function Navbar({ onToggleSidebar }) {
         </button>
         <div className="navbar-brand">
           <div className="brand-logo-circle">ERP</div>
-          <span className="brand-text">Apex Institute ERP</span>
+          <span className="brand-text">Camp-co</span>
         </div>
       </div>
 

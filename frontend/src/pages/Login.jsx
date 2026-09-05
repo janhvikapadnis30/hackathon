@@ -48,8 +48,8 @@ export default function Login() {
       <div style={styles.card}>
         {/* Header */}
         <div style={styles.header}>
-          <div style={styles.logo}>🎓</div>
-          <h1 style={styles.title}>Apex Institute ERP</h1>
+          <img src="/camp-co-logo.jpg" alt="Camp-co Logo" style={{ width: '80px', height: '80px', borderRadius: '50%', marginBottom: '12px', objectFit: 'cover' }} />
+          <h1 style={styles.title}>Camp-co</h1>
           <p style={styles.subtitle}>Next-Generation Integrated Academic & Student Information Management System</p>
         </div>
 
