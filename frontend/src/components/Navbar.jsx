@@ -29,7 +29,7 @@ export default function Navbar({ onToggleSidebar }) {
           <Menu size={22} />
         </button>
         <div className="navbar-brand">
-          <div className="brand-logo-circle">ERP</div>
+          <img src="/camp-co-logo.jpg" alt="Camp-co Logo" style={{ width: '34px', height: '34px', borderRadius: '8px', objectFit: 'cover', marginRight: '12px' }} />
           <span className="brand-text">Camp-co</span>
         </div>
       </div>
