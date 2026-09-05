@@ -13,7 +13,7 @@ export default function FacultyResults() {
   const [selectedExamId, setSelectedExamId] = useState('');
   const [departments, setDepartments] = useState([]);
   const [selectedDeptId, setSelectedDeptId] = useState('');
-  const [selectedSemester, setSelectedSemester] = useState('1');
+  const [selectedSemester, setSelectedSemester] = useState('5');
   const [courses, setCourses] = useState([]);
   const [selectedCourseId, setSelectedCourseId] = useState('');
 

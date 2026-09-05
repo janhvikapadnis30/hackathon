@@ -24,7 +24,7 @@ export default function MyFees() {
         setLoading(true);
         setError('');
         const res = await feeService.getFeesByStudent(user.student_id);
-        setData(res);
+        setData(res.data);
       } catch (err) {
         setError(err.response?.data?.message || 'Failed to load fee information.');
       } finally {
@@ -38,8 +38,8 @@ export default function MyFees() {
   if (loading) return <Loading message="Loading fee statement..." />;
   if (error) return <ErrorMessage message={error} />;
 
-  const summary = data?.summary || { total_invoiced: 0, total_paid: 0, total_due: 0 };
-  const records = data?.data || [];
+  const summary = data?.summary || { total_fees: 0, total_paid: 0, total_due: 0 };
+  const records = data?.records || [];
 
   return (
     <div className="page-container">
@@ -56,7 +56,7 @@ export default function MyFees() {
           <div className="stat-card-body">
             <div>
               <p className="stat-card-title">Total Invoiced</p>
-              <h3 className="stat-card-value">{formatCurrency(summary.total_invoiced)}</h3>
+              <h3 className="stat-card-value">{formatCurrency(summary.total_fees)}</h3>
               <p className="stat-card-subtitle">Tuition & campus fees</p>
             </div>
             <div className="stat-card-icon-wrap icon-bg-blue">
@@ -126,7 +126,7 @@ export default function MyFees() {
                   return (
                     <tr key={fee.id}>
                       <td className="font-semibold">Semester {fee.semester}</td>
-                      <td>{formatCurrency(fee.total_fee)}</td>
+                      <td>{formatCurrency(fee.amount)}</td>
                       <td>{formatCurrency(fee.amount_paid)}</td>
                       <td className="font-semibold text-danger">{formatCurrency(fee.amount_due)}</td>
                       <td>{formatDate(fee.due_date)}</td>
