@@ -78,6 +78,13 @@ export const MOCK_ATTENDANCE_ENTRIES = [
   { id: 7, student_id: 11, roll_number: 'CS2021006', student_name: 'Rahul Verma', course_id: 1, course_code: 'CS301', course_name: 'Data Structures', total_classes: 36, classes_attended: 28, percentage: 77.8 },
   { id: 8, student_id: 12, roll_number: 'CS2021007', student_name: 'Pooja Iyer', course_id: 1, course_code: 'CS301', course_name: 'Data Structures', total_classes: 36, classes_attended: 32, percentage: 88.9 },
   { id: 9, student_id: 6, roll_number: 'EC2021001', student_name: 'Kavya Sharma', course_id: 7, course_code: 'EC301', course_name: 'Circuit Analysis', total_classes: 40, classes_attended: 34, percentage: 85.0 },
+  { id: 10, student_id: 7, roll_number: 'EC2021002', student_name: 'Vikram Yadav', course_id: 7, course_code: 'EC301', course_name: 'Circuit Analysis', total_classes: 40, classes_attended: 27, percentage: 67.5 },
+  { id: 11, student_id: 8, roll_number: 'ME2021001', student_name: 'Sneha Gupta', course_id: 7, course_code: 'ME301', course_name: 'Thermodynamics', total_classes: 35, classes_attended: 31, percentage: 88.6 },
+  { id: 12, student_id: 9, roll_number: 'IT2021001', student_name: 'Karan Joshi', course_id: 5, course_code: 'IT501', course_name: 'Software Engineering', total_classes: 42, classes_attended: 33, percentage: 78.6 },
+  { id: 13, student_id: 10, roll_number: 'CE2021001', student_name: 'Deepika Pillai', course_id: 5, course_code: 'CE501', course_name: 'Structural Analysis', total_classes: 38, classes_attended: 35, percentage: 92.1 },
+  { id: 14, student_id: 13, roll_number: 'EC2021003', student_name: 'Amit Bose', course_id: 7, course_code: 'EC301', course_name: 'Circuit Analysis', total_classes: 40, classes_attended: 25, percentage: 62.5 },
+  { id: 15, student_id: 14, roll_number: 'ME2021002', student_name: 'Sanya Desai', course_id: 7, course_code: 'ME301', course_name: 'Thermodynamics', total_classes: 35, classes_attended: 32, percentage: 91.4 },
+  { id: 16, student_id: 15, roll_number: 'IT2021002', student_name: 'Nikhil Rao', course_id: 5, course_code: 'IT301', course_name: 'Object Oriented Programming', total_classes: 40, classes_attended: 34, percentage: 85.0 },
 ];
 
 export const MOCK_ATTENDANCE = [

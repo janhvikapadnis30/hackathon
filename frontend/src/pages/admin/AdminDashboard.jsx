@@ -74,6 +74,7 @@ export default function AdminDashboard() {
           subtitle="Enrolled across all depts"
           icon={Users}
           color="blue"
+          onClick={() => navigate('/admin/students')}
         />
         <StatCard
           title="Faculty Members"
@@ -81,6 +82,7 @@ export default function AdminDashboard() {
           subtitle="Teaching departments"
           icon={UserCheck}
           color="indigo"
+          onClick={() => alert('Faculty Management module is currently under development.')}
         />
         <StatCard
           title="Academic Departments"
@@ -88,6 +90,7 @@ export default function AdminDashboard() {
           subtitle="Engineering & Tech"
           icon={Landmark}
           color="emerald"
+          onClick={() => alert('Academic Department configuration is currently under development.')}
         />
         <StatCard
           title="Pending Fees"
@@ -95,6 +98,7 @@ export default function AdminDashboard() {
           subtitle={`Collected: ${formatCurrency(feeSummary.total_collected)}`}
           icon={CreditCard}
           color="amber"
+          onClick={() => navigate('/admin/fees')}
         />
       </div>
 
