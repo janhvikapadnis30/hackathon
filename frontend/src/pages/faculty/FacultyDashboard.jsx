@@ -58,6 +58,7 @@ export default function FacultyDashboard() {
           subtitle="Assigned department courses"
           icon={BookOpen}
           color="blue"
+          onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}
         />
         <StatCard
           title="Enrolled Students"
@@ -65,6 +66,7 @@ export default function FacultyDashboard() {
           subtitle="Across active semesters"
           icon={Users}
           color="indigo"
+          onClick={() => navigate('/faculty/students')}
         />
         <StatCard
           title="Attendance Tracking"
@@ -72,6 +74,7 @@ export default function FacultyDashboard() {
           subtitle="Server-calculated compliance"
           icon={CalendarCheck}
           color="emerald"
+          onClick={() => navigate('/faculty/attendance')}
         />
         <StatCard
           title="Grade Evaluations"
@@ -79,6 +82,7 @@ export default function FacultyDashboard() {
           subtitle="Academic scale A+ to F"
           icon={GraduationCap}
           color="amber"
+          onClick={() => navigate('/faculty/results')}
         />
       </div>
 

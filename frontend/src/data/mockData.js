@@ -118,6 +118,10 @@ export const MOCK_RESULTS = [
   { id: 7, student_id: 3, student_name: 'Arjun Reddy', roll_number: 'CS2021003', exam_id: 3, exam_name: 'End Semester Exam - Sem 4', course: 'Computer Networks', course_id: 4, marks: 95, marks_obtained: 95, max_marks: 100, percentage: 95, grade: 'A+', grade_points: 10.0, semester: 4 },
   { id: 8, student_id: 4, student_name: 'Priya Nair', roll_number: 'CS2021004', exam_id: 3, exam_name: 'End Semester Exam - Sem 4', course: 'Computer Networks', course_id: 4, marks: 55, marks_obtained: 55, max_marks: 100, percentage: 55, grade: 'D', grade_points: 5.0, semester: 4 },
   { id: 9, student_id: 5, student_name: 'Rohan Mehta', roll_number: 'CS2021005', exam_id: 3, exam_name: 'End Semester Exam - Sem 4', course: 'Computer Networks', course_id: 4, marks: 98, marks_obtained: 98, max_marks: 100, percentage: 98, grade: 'A+', grade_points: 10.0, semester: 4 },
+  // Sem 5 Exam Results (Added for demo)
+  { id: 10, student_id: 1, student_name: 'Aarav Singh', roll_number: 'CS2021001', exam_id: 1, exam_name: 'Mid Semester Exam - Sem 5', course: 'Web Technologies', course_id: 5, marks: 45, marks_obtained: 45, max_marks: 50, percentage: 90, grade: 'A+', grade_points: 10.0, semester: 5 },
+  { id: 11, student_id: 2, student_name: 'Ananya Patel', roll_number: 'CS2021002', exam_id: 1, exam_name: 'Mid Semester Exam - Sem 5', course: 'Web Technologies', course_id: 5, marks: 38, marks_obtained: 38, max_marks: 50, percentage: 76, grade: 'B+', grade_points: 8.0, semester: 5 },
+  { id: 12, student_id: 3, student_name: 'Arjun Reddy', roll_number: 'CS2021003', exam_id: 1, exam_name: 'Mid Semester Exam - Sem 5', course: 'Web Technologies', course_id: 5, marks: 48, marks_obtained: 48, max_marks: 50, percentage: 96, grade: 'A+', grade_points: 10.0, semester: 5 },
 ];
 
 export const MOCK_DASHBOARD_STATS = {
