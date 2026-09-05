@@ -132,7 +132,7 @@ export default function Attendance() {
                         <td>{att.student_name}</td>
                         <td>{att.total_classes}</td>
                         <td>{att.classes_attended}</td>
-                        <td className="font-semibold">{att.percentage}%</td>
+                        <td className="font-semibold">{att.percentage != null ? `${att.percentage}%` : 'N/A'}</td>
                         <td>
                           <span className={`badge ${b.className}`}>{b.label}</span>
                         </td>

@@ -10,7 +10,7 @@ import { CalendarCheck, Save, CheckCircle2 } from 'lucide-react';
 export default function FacultyAttendance() {
   const [departments, setDepartments] = useState([]);
   const [selectedDeptId, setSelectedDeptId] = useState('');
-  const [selectedSemester, setSelectedSemester] = useState('1');
+  const [selectedSemester, setSelectedSemester] = useState('5');
   const [courses, setCourses] = useState([]);
   const [selectedCourseId, setSelectedCourseId] = useState('');
 
