@@ -14,6 +14,8 @@ import Attendance from './pages/admin/Attendance';
 import Fees from './pages/admin/Fees';
 import Results from './pages/admin/Results';
 import Reports from './pages/admin/Reports';
+import AdminFaculty from './pages/admin/AdminFaculty';
+import AdminDepartments from './pages/admin/AdminDepartments';
 
 // Faculty Pages
 import FacultyDashboard from './pages/faculty/FacultyDashboard';
@@ -59,6 +61,8 @@ export default function App() {
         <Route path="/admin/fees" element={<Fees />} />
         <Route path="/admin/results" element={<Results />} />
         <Route path="/admin/reports" element={<Reports />} />
+        <Route path="/admin/faculty" element={<AdminFaculty />} />
+        <Route path="/admin/departments" element={<AdminDepartments />} />
       </Route>
 
       {/* Faculty Protected Routes */}

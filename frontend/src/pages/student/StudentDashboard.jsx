@@ -54,7 +54,7 @@ export default function StudentDashboard() {
   if (error) return <ErrorMessage message={error} />;
 
   const { personal_info, attendance, fees, results } = profileData || {};
-  const isAttendanceLow = attendance?.overall_percentage < 75;
+  const isAttendanceLow = attendance?.summary?.overall_percentage < 75;
 
   return (
     <div className="page-container">
@@ -74,20 +74,26 @@ export default function StudentDashboard() {
           <AlertTriangle size={20} />
           <span>
             <strong>Attendance Notice:</strong> Your overall attendance is currently at{' '}
-            {attendance?.overall_percentage}%, which is below the mandatory 75% institutional requirement.
+            {attendance?.summary?.overall_percentage}%, which is below the mandatory 75% institutional requirement.
           </span>
         </div>
       )}
 
       {/* KPI Stats Grid */}
       <div className="stats-grid mb-6">
-        <div className="stat-card stat-card-blue">
+        <div 
+          className="stat-card stat-card-blue"
+          onClick={() => navigate('/student/attendance')}
+          style={{ cursor: 'pointer', transition: 'transform 0.2s' }}
+          onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.02)'}
+          onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
+        >
           <div className="stat-card-body">
             <div>
               <p className="stat-card-title">Overall Attendance</p>
-              <h3 className="stat-card-value">{attendance?.overall_percentage || 0}%</h3>
+              <h3 className="stat-card-value">{attendance?.summary?.overall_percentage || 0}%</h3>
               <p className="stat-card-subtitle">
-                {attendance?.attended_classes || 0} / {attendance?.total_classes || 0} sessions
+                {attendance?.summary?.attended_classes || 0} / {attendance?.summary?.total_classes || 0} sessions
               </p>
             </div>
             <div className="stat-card-icon-wrap icon-bg-blue">
@@ -96,12 +102,20 @@ export default function StudentDashboard() {
           </div>
         </div>
 
-        <div className="stat-card stat-card-amber">
+        <div 
+          className="stat-card stat-card-amber"
+          onClick={() => navigate('/student/fees')}
+          style={{ cursor: 'pointer', transition: 'transform 0.2s' }}
+          onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.02)'}
+          onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
+        >
           <div className="stat-card-body">
             <div>
               <p className="stat-card-title">Fee Balance Due</p>
-              <h3 className="stat-card-value">{formatCurrency(fees?.total_due)}</h3>
-              <p className="stat-card-subtitle">Paid: {formatCurrency(fees?.total_paid)}</p>
+              <h3 className="stat-card-value">{formatCurrency(fees?.summary?.total_due || 0)}</h3>
+              <p className="stat-card-subtitle">
+                Paid: {formatCurrency(fees?.summary?.total_paid || 0)}
+              </p>
             </div>
             <div className="stat-card-icon-wrap icon-bg-amber">
               <CreditCard size={24} />
@@ -109,7 +123,13 @@ export default function StudentDashboard() {
           </div>
         </div>
 
-        <div className="stat-card stat-card-emerald">
+        <div 
+          className="stat-card stat-card-emerald"
+          onClick={() => navigate('/student/results')}
+          style={{ cursor: 'pointer', transition: 'transform 0.2s' }}
+          onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.02)'}
+          onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
+        >
           <div className="stat-card-body">
             <div>
               <p className="stat-card-title">Completed Exams</p>

@@ -82,7 +82,7 @@ export default function AdminDashboard() {
           subtitle="Teaching departments"
           icon={UserCheck}
           color="indigo"
-          onClick={() => alert('Faculty Management module is currently under development.')}
+          onClick={() => navigate('/admin/faculty')}
         />
         <StatCard
           title="Academic Departments"
@@ -90,7 +90,7 @@ export default function AdminDashboard() {
           subtitle="Engineering & Tech"
           icon={Landmark}
           color="emerald"
-          onClick={() => alert('Academic Department configuration is currently under development.')}
+          onClick={() => navigate('/admin/departments')}
         />
         <StatCard
           title="Pending Fees"
